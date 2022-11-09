@@ -115,6 +115,39 @@ fun itadd:: "nat \<Rightarrow> nat \<Rightarrow> nat" where
 "itadd 0 n = n" |
 "itadd (Suc m) n = itadd m (Suc n)"
 
-(* proof is incomplete *)
+(* not complete *)
+
+(*  Exercise 2.10  *)
+datatype tree0 = Tip | Node tree0 tree0
+
+fun nodes:: "tree0 \<Rightarrow> nat" where
+"nodes Tip = 0" |
+"nodes (Node l r) = 1 + nodes l + nodes r"
+
+fun explode:: "nat \<Rightarrow> tree0 \<Rightarrow> tree0" where
+"explode 0 t = t" |
+"explode (Suc n) t = explode n (Node t t)"
+
+lemma "nodes(explode n t) = 2^n * (nodes t + 1) - 1"
+  apply(induction n arbitrary: t)
+   apply(auto)
+  apply(simp add: algebra_simps)
+  done
+
+(*  Exercise 2.11  *)
+datatype exp = Var | Const int | Add exp exp | Mult exp exp
+
+fun eval:: "exp \<Rightarrow> int \<Rightarrow> int" where
+"eval Var v = v" |
+"eval (Const i) v = i" |
+"eval (Add e1 e2) v = (eval e1 v) + (eval e2 v)" |
+"eval (Mult e1 e2) v = (eval e1 v) * (eval e2 v)"
+
+fun evalp:: "int list \<Rightarrow> int \<Rightarrow> int" where
+"evalp [] n = 0" |
+"evalp (x#xs) n = x + n * (evalp xs n)"
+
+(* not complete *)
+
 
 end
