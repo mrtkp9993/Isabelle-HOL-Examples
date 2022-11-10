@@ -11,6 +11,11 @@ lemma add_02[simp] : "add m 0 = m"
   apply(auto)
   done
 
+lemma suc_add [simp]: "Suc (add m n) = add m (Suc n)"
+  apply(induction m)
+   apply(auto)
+  done
+
 datatype 'a tree = Tip | Node "'a tree" 'a "'a tree"
 
 fun mirror:: "'a tree \<Rightarrow> 'a tree" where

@@ -9,20 +9,23 @@ value "1 - (2::nat)"
 value "1 - (2::int)"
 
 (*  Exercise 2.2  *)
+(*
 lemma add_assoc[simp]: "add x (add y z) = add (add x y) z"
   apply(induction x)
    apply(auto)
   done
-
+ 
 lemma suc_add[simp]: "Suc (add m n) = add m (Suc n)"
   apply(induction m)
    apply(auto)
   done 
 
+
 lemma add_commu[simp]: "add x y = add y x"
   apply(induction x)
    apply(auto)
   done
+
 
 fun double:: "nat \<Rightarrow> nat" where
 "double 0 = 0" |
@@ -32,6 +35,7 @@ lemma "double m = add m m"
   apply(induction m)
    apply(auto)
   done
+*)
 
 (*  Exercise 2.3  *)
 fun count:: "'a \<Rightarrow> 'a list \<Rightarrow> nat" where
@@ -115,7 +119,10 @@ fun itadd:: "nat \<Rightarrow> nat \<Rightarrow> nat" where
 "itadd 0 n = n" |
 "itadd (Suc m) n = itadd m (Suc n)"
 
-(* not complete *)
+lemma "itadd m n = add m n"
+  apply(induction m arbitrary: n)
+   apply(auto)
+  done
 
 (*  Exercise 2.10  *)
 datatype tree0 = Tip | Node tree0 tree0
@@ -148,6 +155,4 @@ fun evalp:: "int list \<Rightarrow> int \<Rightarrow> int" where
 "evalp (x#xs) n = x + n * (evalp xs n)"
 
 (* not complete *)
-
-
 end
